@@ -23,4 +23,4 @@ class Sensor(models.Model):
 #    company = models.ForeignKey(Company, on_delete= models.CASCADE, verbose_name= "The sensor it is related to")
     city = models.ForeignKey(City, on_delete=models.CASCADE, verbose_name= "The city it is located at")
     district = models.ForeignKey(District, on_delete=models.CASCADE, verbose_name= "The area it is located at")
-    address = models.CharField(verbose_name= "The place where it was installed", max_length=100)
+    address = models.CharField(verbose_name= "The address where it was installed", max_length=100)

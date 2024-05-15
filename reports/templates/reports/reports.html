@@ -31,6 +31,7 @@
                         <th>Дистанция(см)</th>
                         <th>Адрес</th>
                         <th>Дата</th>
+                        <th>Удалить</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,6 +41,12 @@
                             <td>{{record.distance}}</td>
                             <td>{{record.sensor.address}}</td>
                             <td>{{record.time}}</td>
+                            <td>
+                                <form action="{% url 'reports:delete' record.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
