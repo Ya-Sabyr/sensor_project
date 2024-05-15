@@ -7,3 +7,8 @@ class Record(models.Model):
     distance = models.FloatField()
     time = models.DateTimeField(auto_now_add=True)
     full = models.BooleanField(default=True)
+    
+    class Meta:
+        verbose_name = 'Запись'
+        ordering = ['-time']
+        
