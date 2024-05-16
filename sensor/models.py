@@ -5,12 +5,19 @@ from django.db import models
 class City(models.Model):
     city_name = models.CharField(max_length=100)
     sensors_number = models.IntegerField(default=0)
+    full_bins = models.IntegerField(default=0)
+    
+    def __str__(self) -> str:
+        return self.city_name
     
 class District(models.Model):
     district_name = models.CharField(max_length=100)
     sensors_number = models.IntegerField(default=0)
     сity = models.ForeignKey(City, on_delete=models.CASCADE)
+    full_bins = models.IntegerField(default=0)
 
+    def __str__(self) -> str:
+        return self.district_name
 """
 class Company(models.Model):
     name = models.CharField(max_length=100)
@@ -24,3 +31,6 @@ class Sensor(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE, verbose_name= "The city it is located at")
     district = models.ForeignKey(District, on_delete=models.CASCADE, verbose_name= "The area it is located at")
     address = models.CharField(verbose_name= "The address where it was installed", max_length=100)
+    
+    def __str__(self) -> str:
+        return self.address
