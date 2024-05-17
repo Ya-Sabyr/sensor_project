@@ -13,7 +13,7 @@ class City(models.Model):
 class District(models.Model):
     district_name = models.CharField(max_length=100)
     sensors_number = models.IntegerField(default=0)
-    сity = models.ForeignKey(City, on_delete=models.CASCADE)
+    city = models.ForeignKey(City, on_delete=models.CASCADE)
     full_bins = models.IntegerField(default=0)
 
     def __str__(self) -> str:
