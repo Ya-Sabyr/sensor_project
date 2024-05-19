@@ -22,3 +22,14 @@ class RecordViewTests(TestCase):
         response = self.client.post(reverse('reports:delete', args=[self.record.id]))
         self.assertRedirects(response, reverse('reports:reports'))
         self.assertFalse(RecordProxy.objects.filter(id=self.record.id).exists())
+    
+    def test_receive_device_data(self):
+        url = reverse('reports:receive')
+        data = {
+            'sensor_id': self.sensor.id,
+            'distance': 13.0,
+        }
+        response = self.client.post(url, data)
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(response.content, {'status': 'success', 'message': 'good boy'})
