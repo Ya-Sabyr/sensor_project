@@ -3,6 +3,7 @@ from .models import RecordProxy
 from sensor.models import Sensor
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib import messages
 
 # Create your views here.
 def records_view(request):
@@ -11,8 +12,12 @@ def records_view(request):
 
 def record_delete(request, record_id):
     if request.method == 'POST':
-        record = RecordProxy.objects.get(id=record_id)
-        record.delete()
+        try:    
+            record = RecordProxy.objects.get(id=record_id)
+            record.delete()
+            messages.success(request, 'Record deleted successfully')
+        except RecordProxy.DoesNotExist:
+            messages.error(request, 'Error occured')
     return redirect('reports:reports')
 
 @csrf_exempt
