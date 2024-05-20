@@ -61,4 +61,4 @@ def logout_user(request):
 
 
 def main(request):
-    return redirect('reports:reports')
+    return render(request, 'main/main.html')
