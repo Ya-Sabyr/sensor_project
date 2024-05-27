@@ -2,10 +2,13 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from .forms import UserCreateForm, LoginForm
+
+from verify_email.email_handler import send_verification_email
 # Create your views here.
 User = get_user_model()
 
 def registration(request):
+    
     if request.method == 'POST':
         form = UserCreateForm(request.POST)
         
@@ -18,10 +21,12 @@ def registration(request):
             user = User.objects.create_user(username=user_username, email=user_email, password=user_password)
             user.is_active = False
             
+            send_verification_email(user, form)
+            
             return redirect('/login/')
-        else:
-            form = UserCreateForm()
-        return render(request, 'main/registration.html', {'form': form})
+    else:
+        form = UserCreateForm()
+    return render(request, 'main/registration.html', {'form': form})
 
 def login_user(request):
     

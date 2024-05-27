@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-#u()m8y2v=vk&76v2)9h3m1c1@@v(!s($!92ztpx3dxh5qn%*m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '*']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,8 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     #Apps
+    'main.apps.MainConfig',
     'sensor.apps.SensorConfig',
     'reports.apps.ReportsConfig',
+    "verify_email.apps.VerifyEmailConfig",
+    #3rd partiess
 ]
 
 MIDDLEWARE = [
@@ -58,7 +61,7 @@ ROOT_URLCONF = 'device.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ BASE_DIR / 'sensor_project' / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -125,3 +128,13 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+#EMAIL-VERIFICATION
+
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'berikulysabyr@gmail.com'
+EMAIL_HOST_PASSWORD = ''

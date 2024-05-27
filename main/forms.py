@@ -16,7 +16,8 @@ class UserCreateForm(UserCreationForm):
         self.fields['email'].label = 'Email address'
         self.fields['email'].required = True
         self.fields['username'].help_text = ''
-        self.fields['password'].help_text = ''
+        self.fields['password1'].help_text = ''
+        self.fields['password2'].help_text = ''
         
     def clean_email(self):
         email = self.cleaned_data['email'].lower()

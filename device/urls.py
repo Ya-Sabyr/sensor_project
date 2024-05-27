@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('main.urls')),
     path('reports/', include('reports.urls')),
     path('districts/', include('sensor.urls')),
+    path('verification/', include('verify_email.urls')),
 ]
