@@ -26,7 +26,7 @@ def registration(request):
             return redirect('/login/')
     else:
         form = UserCreateForm()
-    return render(request, 'main/registration.html', {'form': form})
+    return render(request, 'main/registration/registration.html', {'form': form})
 
 def login_user(request):
     
@@ -52,7 +52,7 @@ def login_user(request):
     context = {
         "form": form
     }
-    return render(request, 'main/login.html', context)
+    return render(request, 'main/registration/login.html', context)
 
 
 def logout_user(request):
