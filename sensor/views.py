@@ -6,7 +6,7 @@ from reports.models import Record
 def district_list_view(request):
     districts = District.objects.all()
     context = {'districts': districts}
-    return render(request, 'sensor/index.html', context)
+    return render(request, 'sensor/district-list.html', context)
 
 def district_view(request, district):
     sensors = Sensor.objects.filter(district=district)
@@ -14,6 +14,13 @@ def district_view(request, district):
     for sensor in sensors:
         latest_record = Record.objects.filter(sensor__address=sensor.address).order_by('-time').first()
         is_full = latest_record.full if latest_record else False
-        sensor_data.append({'sensor': sensor, 'is_full': is_full})
-    return render(request, 'sensor/district.html', {'sensors': sensor_data})
-
+        sensor_data.append({
+            'id': sensor.id,
+            'address': sensor.address,
+            'coordinate_1': sensor.coordinate_1,
+            'coordinate_2': sensor.coordinate_2,
+            'is_full': is_full
+            })
+    district = District.objects.get(pk=district)
+    context = {'sensors': sensor_data, 'district': district}
+    return render(request, 'sensor/district.html', context)

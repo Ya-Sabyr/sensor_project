@@ -31,8 +31,8 @@ class Sensor(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE, verbose_name= "The city it is located at")
     district = models.ForeignKey(District, on_delete=models.CASCADE, verbose_name= "The area it is located at")
     address = models.CharField(verbose_name= "The address where it was installed", max_length=100, default=None)
-    coordinate_1 = models.CharField(max_length=50, default=None)
-    coordinate_2 = models.CharField(max_length=50, default=None)
+    coordinate_1 = models.FloatField(default=None)
+    coordinate_2 = models.FloatField(default=None)
     
     def __str__(self) -> str:
         return f'{self.id}, {self.address}'

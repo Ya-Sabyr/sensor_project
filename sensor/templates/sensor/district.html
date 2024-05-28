@@ -1,27 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .red {
-            background-color: red;
-            color: yellow;
-        }
-        .green {
-            background-color: green;
-            color: white;
-        }
-        .yellow {
-            background-color: yellow;
-            color:yellow
-        }
-    </style>
-</head>
-<body>
+{%  extends "main/base/base.html" %}
+
+{% load static %}
+
+
+
+{% block content %}
+    <div id = "container">
+        <div id="map"></div>
+    </div>
     <div class="container mt-5">
         <div class="table-responsive">
             <table class="table table-striped">
@@ -35,8 +21,8 @@
                 <tbody>
                     {% for sensor in sensors %}
                         <tr>
-                            <td>{{sensor.sensor.id}}</td>
-                            <td>{{sensor.sensor.address}}</td>
+                            <td>{{sensor.id}}</td>
+                            <td>{{sensor.address}}</td>
                             <td>{{sensor.is_full}}</td>
                         </tr>
                     {% endfor %}
@@ -44,9 +30,12 @@
             </table>
         </div>
     </div>
-    <!-- Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+
+    {{ sensors|json_script:"sensors-data" }}
+
+    {% block scripts %}
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="{% static 'sensor/js/map.js' %}"></script>
+    <script src="{% static 'sensor/js/bootstrap.js' %}"></script>
+    {% endblock %}
+{% endblock %}

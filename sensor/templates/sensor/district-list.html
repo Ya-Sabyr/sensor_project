@@ -1,0 +1,33 @@
+{%  extends "main/base/base.html" %}
+
+{% load static %}
+
+
+
+{% block content %}
+    <div id = "container">
+        <div id="map"></div>
+    </div>
+    <div id = "addresses"> <!--Za4em tut dva diva-->
+        <div id="links">
+            {% for district in districts %}
+            <div id = "raion">
+                <ul>
+                    <li>
+                        <a href = "{% url "sensors:district" district.id %}">{{district.district_name}}</a>
+                        <ul>
+                            <li>{{district.full_bins}} мусорка заполнена</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% block scripts %}
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="{% static 'sensor/js/map.js' %}"></script>
+    <script src="{% static 'sensor/js/bootstrap.js' %}"></script>
+    {% endblock %}
+{% endblock %}
