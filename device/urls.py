@@ -16,11 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django_email_verification import urls as email_urls
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    #apps
     path('', include('main.urls')),
     path('reports/', include('reports.urls')),
     path('districts/', include('sensor.urls')),
-    path('verification/', include('verify_email.urls')),
+    
+    #3rd parties
+    path('email/', include(email_urls), name='email-verification'),
+    path('admin/', admin.site.urls),
 ]
