@@ -2,6 +2,7 @@ from typing import Any
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.forms.widgets import PasswordInput, TextInput
 
 User = get_user_model()
 
@@ -29,5 +30,5 @@ class UserCreateForm(UserCreationForm):
     
     
 class LoginForm(AuthenticationForm):
-    username = forms.CharField()
-    password = forms.CharField()
+    username = forms.CharField(widget=TextInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(widget=PasswordInput(attrs={'class': 'form-control'}))

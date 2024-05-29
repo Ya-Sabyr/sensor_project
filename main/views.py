@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from .forms import UserCreateForm, LoginForm
 
-from verify_email.email_handler import send_verification_email
+from django_email_verification import send_email
 # Create your views here.
 User = get_user_model()
 
@@ -21,7 +21,7 @@ def registration(request):
             user = User.objects.create_user(username=user_username, email=user_email, password=user_password)
             user.is_active = False
             
-            send_verification_email(user, form)
+#            send_email(user)
             
             return redirect('/login/')
     else:
