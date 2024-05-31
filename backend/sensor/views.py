@@ -1,13 +1,16 @@
 from django.shortcuts import render
 from .models import City, District, Sensor
 from reports.models import Record
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required(login_url='main:login')
 def district_list_view(request):
     districts = District.objects.all()
     context = {'districts': districts}
     return render(request, 'sensor/district-list.html', context)
 
+@login_required(login_url='main:login')
 def district_view(request, district):
     sensors = Sensor.objects.filter(district=district)
     sensor_data = []

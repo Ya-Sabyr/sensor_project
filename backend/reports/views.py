@@ -4,12 +4,15 @@ from sensor.models import Sensor
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required(login_url='main:login')
 def records_view(request):
     records = RecordProxy.objects.all()
     return render(request, 'reports/reports.html', {'records': records})
 
+@login_required(login_url='main:login')
 def record_delete(request, record_id):
     if request.method == 'POST':
         try:    
