@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.urls import reverse
 
 from .forms import UserCreateForm, LoginForm
 from .tasks import send_email_confirmation
@@ -17,12 +18,17 @@ def registration(request):
             user_username = form.cleaned_data.get('username')
             user_password = form.cleaned_data.get('password1')
             
-            user = User.objects.create_user(username=user_username, email=user_email, password=user_password)
+            user = User.objects.create_user(
+                username=user_username, email=user_email, password=user_password
+            )
             user.is_active = False
+            user.save()
             
             send_email_confirmation.delay(user.id)
             
-            return redirect('/login/')
+            messages.success(request, "Регистрация успешна")
+            
+            return redirect(reverse('main:login'))
     else:
         form = UserCreateForm()
     return render(request, 'main/registration/registration.html', {'form': form})
@@ -65,4 +71,10 @@ def logout_user(request):
 
 
 def main(request):
-    return render(request, 'main/main.html')
+    return render(request, 'main/development/development.html')
+
+def contacts(request):
+    return render(request, 'main/development/development.html')
+
+def about_us(request):
+    return render(request, 'main/development/development.html')

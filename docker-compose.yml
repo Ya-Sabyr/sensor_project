@@ -21,7 +21,7 @@ services:
     volumes:
       - static_data:/app/static
       - media_data:/app/media
-      - .:/app
+      - ./backend:/app
     depends_on:
       - db
     ports:
@@ -51,11 +51,11 @@ services:
       - redis
     volumes:
       - static_data:/app/static
-      - .:/app
+      - ./backend:/app
     restart: always
     command: >
       sh -c "
-      celery -A device worker --loglevel=info
+      celery -A bigcorp worker --loglevel=info
       "
 
   nginx:

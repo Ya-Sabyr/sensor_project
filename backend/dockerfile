@@ -16,7 +16,7 @@ WORKDIR /app
 # Copy requirements.txt to the container
 COPY requirements.txt /app/
 
-# Install Python dependencies
+# Install Python dependencies 
 RUN python -m pip install --upgrade pip --no-warn-script-location && \
     pip install -r requirements.txt --no-cache-dir --no-warn-script-location
 
