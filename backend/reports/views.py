@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .tasks import new_report_notification
 
 # Create your views here.
 @login_required(login_url='main:login')
@@ -31,7 +32,8 @@ def receive_device_data(request):
         if sensor_id and distance:
             try:
                 sensor = Sensor.objects.get(id=sensor_id)
-                RecordProxy.objects.create(sensor=sensor, distance=distance, full=True)
+                record = RecordProxy.objects.create(sensor=sensor, distance=distance, full=True)
+                new_report_notification.delay(record.id)
                 return JsonResponse({'status': 'success', 'message': 'good boy'}, status=200)
             except Sensor.DoesNotExist:
                 return JsonResponse({'status': 'error', 'message': 'eshe nemnogo'}, status=404)

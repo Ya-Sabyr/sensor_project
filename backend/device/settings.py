@@ -44,12 +44,14 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'sensor.apps.SensorConfig',
     'reports.apps.ReportsConfig',
-    "verify_email.apps.VerifyEmailConfig",
+    'chat.apps.ChatConfig',
+    
     #3rd parties
     'django_email_verification',
     'django_celery_beat',
     'django_celery_results',
-    
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -141,10 +143,8 @@ APPEND_SLASH = True
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'static'
-STATICFILES_DIRS = [
-    BASE_DIR / 'device' / 'static',
-]
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # This directory will be used by collectstatic
+STATICFILES_DIRS = [BASE_DIR / 'static']  # Your local static files
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -154,9 +154,12 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#Crispy forms
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
 
 #EMAIL-VERIFICATION
-
 def email_verified_callback(user):
     user.is_active = True
     user.save()
