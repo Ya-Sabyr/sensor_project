@@ -1,0 +1,79 @@
+
+#container {
+    height: 50%;
+    margin: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+#map {
+    height: 100%;
+    width: 100%;
+}
+#links {
+    height: 25%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    background-color: #f0f0f0;
+    border-top: 1px solid #ccc; /* Optional: To visualize separation */
+}
+#links #raion {
+    text-align: left;
+    margin: 10px;
+    padding: 10px;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 4px;
+    flex: 1 0 45%; /* Two items per row */
+}
+#addresses {
+    margin: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+li {
+    list-style-type: circle;
+}
+li li {
+    font-size: 20px;
+    list-style-type: square;
+}
+a {
+    font-size: 25px;
+}
+@media (max-width: 768px) {
+    #container {
+        flex-direction: column;
+    }
+
+    #map {
+        order: 2;
+        width: 100%;
+    }
+
+    #addresses {
+        order: 1;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-nav {
+        text-align: center;
+    }
+
+    .navbar-nav .nav-link {
+        padding: 12px;
+    }
+}
