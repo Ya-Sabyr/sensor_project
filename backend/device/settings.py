@@ -44,12 +44,14 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'sensor.apps.SensorConfig',
     'reports.apps.ReportsConfig',
-    "verify_email.apps.VerifyEmailConfig",
+    'chat.apps.ChatConfig',
+    
     #3rd parties
     'django_email_verification',
     'django_celery_beat',
     'django_celery_results',
-    
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -86,6 +88,7 @@ WSGI_APPLICATION = 'device.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+
 DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.sqlite3',
@@ -103,7 +106,6 @@ DATABASES = {
 #         "PORT": os.environ.get("POSTGRES_PORT", default=5432),
 #     }
 # }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -127,32 +129,43 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+#Project settings
+LANGUAGE_CODE = 'ru-ru'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
+APPEND_SLASH = True
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # This directory will be used by collectstatic
 STATICFILES_DIRS = [BASE_DIR / 'static']  # Your local static files
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#Crispy forms
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
 
 #EMAIL-VERIFICATION
-
 def email_verified_callback(user):
     user.is_active = True
+    user.save()
     
 # Global Package Settings
-EMAIL_FROM_ADDRESS = 'berikulysabyr@gmail.com'  # mandatory
+EMAIL_FROM_ADDRESS = os.environ.get("EMAIL_HOST_USER")  # mandatory
 EMAIL_PAGE_DOMAIN = 'http://127.0.0.1:8000/'  # mandatory (unless you use a custom link)
 EMAIL_MULTI_USER = False  # optional (defaults to False)
 
@@ -160,7 +173,7 @@ EMAIL_MULTI_USER = False  # optional (defaults to False)
 EMAIL_MAIL_SUBJECT = 'Confirm your email {{ user.username }}'
 EMAIL_MAIL_HTML = 'main/email/mail_body.html'
 EMAIL_MAIL_PLAIN = 'main/email/mail_body.txt'
-EMAIL_MAIL_TOKEN_LIFE = 60 * 60 * 24  # one hour
+EMAIL_MAIL_TOKEN_LIFE = 60 * 60 * 24  # one day
 
 # Email Verification Settings (mandatory for builtin view)
 EMAIL_MAIL_PAGE_TEMPLATE = 'main/email/email_success_template.html'

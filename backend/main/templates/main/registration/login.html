@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Page</title>
+{% extends "main/base/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block head %}
+    <title>Login Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -40,17 +39,17 @@
             background-color: #45a049;
         }
     </style>
-</head>
-<body>
+{% endblock %}
+
+{% block content %}
     <div class="container">
         <h2>Login</h2>
         <form method="post">
             {% csrf_token %}
             
-            {{form}}
+            {{ form|crispy }}
 
             <button type="submit">Login</button>
         </form>
     </div>
-</body>
-</html>
+{% endblock %}
